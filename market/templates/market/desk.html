@@ -1,0 +1,12 @@
+{% extends "market/base.html" %}
+{% block title %}Desk · SwapShelf{% endblock %}
+{% block body %}
+<section class="narrow">
+  <h1>Department desk</h1>
+  {% if allowed %}
+    <p class="note">{{ note }}</p>
+  {% else %}
+    <p class="lede">This page is for department board accounts.</p>
+  {% endif %}
+</section>
+{% endblock %}

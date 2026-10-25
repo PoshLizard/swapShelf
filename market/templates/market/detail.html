@@ -1,0 +1,21 @@
+{% extends "market/base.html" %}
+{% block title %}{{ listing.title }} · SwapShelf{% endblock %}
+{% block body %}
+<article class="narrow">
+  <p class="crumbs"><a href="{% url 'home' %}">Board</a> / {{ listing.get_category_display }}</p>
+  <span class="price">${{ listing.price }}</span>
+  <h1>{{ listing.title }}</h1>
+  <p class="lede">{{ listing.description }}</p>
+  <dl class="facts">
+    <div><dt>Seller</dt><dd>{{ listing.owner.first_name }} {{ listing.owner.last_name }}</dd></div>
+    <div><dt>Status</dt><dd>{{ listing.status }}</dd></div>
+  </dl>
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'start_thread' listing.pk %}">Message seller</a></p>
+    <p><a href="{% url 'listing_edit' listing.pk %}">Edit listing</a></p>
+    <form method="post" action="{% url 'listing_sold' listing.pk %}">{% csrf_token %}<button type="submit">Mark sold</button></form>
+  {% else %}
+    <p><a href="{% url 'sign_in' %}">Sign in to message the seller</a></p>
+  {% endif %}
+</article>
+{% endblock %}

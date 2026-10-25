@@ -1,0 +1,18 @@
+{% extends "market/base.html" %}
+{% block title %}Thread · SwapShelf{% endblock %}
+{% block body %}
+<section class="narrow">
+  <p class="crumbs"><a href="{% url 'listing_detail' thread.listing.pk %}">{{ thread.listing.title }}</a></p>
+  <h1>Messages</h1>
+  <ul class="list">
+    {% for message in messages %}
+      <li><strong>{{ message.sender.first_name }}</strong> {{ message.body }}</li>
+    {% endfor %}
+  </ul>
+  <form method="post" class="stack">
+    {% csrf_token %}
+    <label>Reply<textarea name="body" required></textarea></label>
+    <button type="submit">Send</button>
+  </form>
+</section>
+{% endblock %}

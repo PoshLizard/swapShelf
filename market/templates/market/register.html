@@ -1,0 +1,12 @@
+{% extends "market/base.html" %}
+{% block title %}Create account · SwapShelf{% endblock %}
+{% block body %}
+<section class="narrow">
+  <h1>Create an account</h1>
+  <form method="post" class="stack">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create account</button>
+  </form>
+</section>
+{% endblock %}

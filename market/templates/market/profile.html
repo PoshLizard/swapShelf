@@ -1,0 +1,13 @@
+{% extends "market/base.html" %}
+{% block title %}Profile · SwapShelf{% endblock %}
+{% block body %}
+<section class="narrow">
+  <h1>Profile</h1>
+  <p class="lede">Name and email show up on your listings.</p>
+  <form method="post" class="stack">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save profile</button>
+  </form>
+</section>
+{% endblock %}

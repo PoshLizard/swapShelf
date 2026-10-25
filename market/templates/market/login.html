@@ -1,0 +1,13 @@
+{% extends "market/base.html" %}
+{% block title %}Sign in · SwapShelf{% endblock %}
+{% block body %}
+<section class="narrow">
+  <h1>Sign in</h1>
+  <p class="lede">Demo accounts are in the README. Use the username, not the email.</p>
+  <form method="post" class="stack">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign in</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "market/base.html" %}
+{% block title %}Mine · SwapShelf{% endblock %}
+{% block body %}
+<section>
+  <h1>Your shelf</h1>
+  <ul class="list">
+    {% for listing in listings %}
+      <li><a href="{% url 'listing_edit' listing.pk %}">{{ listing.title }} · ${{ listing.price }} · {{ listing.status }}</a></li>
+    {% empty %}
+      <li class="lede">You have not posted yet.</li>
+    {% endfor %}
+  </ul>
+  <h2>Messages</h2>
+  <ul class="list">
+    {% for thread in threads %}
+      <li><a href="{% url 'thread_detail' thread.pk %}">{{ thread.listing.title }} with {{ thread.buyer.first_name }}</a></li>
+    {% empty %}
+      <li class="lede">No threads yet.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

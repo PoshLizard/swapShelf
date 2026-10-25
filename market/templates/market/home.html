@@ -1,0 +1,35 @@
+{% extends "market/base.html" %}
+{% block title %}Board · SwapShelf{% endblock %}
+{% block body %}
+<section class="hero">
+  <h1>Textbooks, chargers, and the lamp from move-out.</h1>
+  <p class="lede">Post it, price it, message the seller. Cash or Venmo at the racks. No shipping.</p>
+</section>
+<form class="filters" method="get">
+  <label>Category
+    <select name="category">
+      <option value="">Anything</option>
+      <option value="books" {% if category == "books" %}selected{% endif %}>Books</option>
+      <option value="electronics" {% if category == "electronics" %}selected{% endif %}>Electronics</option>
+      <option value="furniture" {% if category == "furniture" %}selected{% endif %}>Furniture</option>
+      <option value="bikes" {% if category == "bikes" %}selected{% endif %}>Bikes</option>
+      <option value="other" {% if category == "other" %}selected{% endif %}>Other</option>
+    </select>
+  </label>
+  <button type="submit">Filter</button>
+</form>
+<ul class="cards">
+  {% for listing in listings %}
+    <li>
+      <a class="card" href="{% url 'listing_detail' listing.pk %}">
+        <span class="price">${{ listing.price }}</span>
+        <h2>{{ listing.title }}</h2>
+        <p>{{ listing.description|truncatewords:18 }}</p>
+        <div class="meta"><span>{{ listing.get_category_display }}</span><span>{{ listing.owner.first_name }}</span></div>
+      </a>
+    </li>
+  {% empty %}
+    <li class="lede">Nothing on the board yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
