@@ -1,0 +1,23 @@
+# Render blueprint — deploys SwapShelf from the existing Dockerfile.
+# In the Render dashboard: New > Blueprint, connect this repo, Apply.
+services:
+  - type: web
+    name: swapshelf
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /app/data/swapshelf.db
+    # Free instances use an ephemeral filesystem: the SQLite DB is created and
+    # re-seeded on each start, so the demo accounts and the desk note are always
+    # present, but data added at runtime is not kept across restarts.
+    # For durable storage, upgrade the instance and add a disk:
+    #   disk:
+    #     name: swapshelf-data
+    #     mountPath: /app/data
+    #     sizeGB: 1

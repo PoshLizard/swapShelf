@@ -3,8 +3,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+RUN python manage.py collectstatic --noinput
 RUN mkdir -p /app/data && chmod 777 /app/data
 ENV DATABASE_PATH=/app/data/swapshelf.db
 ENV PORT=3000
 EXPOSE 3000
-CMD ["sh", "-c", "python manage.py migrate && python manage.py seed && gunicorn --bind 0.0.0.0:3000 swapshelf.wsgi"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py seed && gunicorn --bind 0.0.0.0:${PORT} swapshelf.wsgi"]
